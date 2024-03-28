@@ -58,3 +58,9 @@ alias ll="ls -al"
 
 alias dk_tr_u='docker-compose --file $HOME/repositories/docker/docker_traeffik/docker-compose.yml up -d'
 alias dk_tr_s='docker-compose --file $HOME/repositories/docker/docker_traeffik/docker-compose.yml stop'
+
+alias rr='konsoleprofile colors=Solarized'
+
+## Required a parameter with the connection in the directory /etc/vpnc/
+alias vpnc="sudo vpnc-connect --local-port 0 "
+alias vpnd="sudo vpnc-disconnect"
