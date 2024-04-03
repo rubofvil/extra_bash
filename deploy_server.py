@@ -14,7 +14,7 @@ provider='symbiotic'
 
 ## Read JSON file
 
-with open('db/servers_ixiam.json') as f:
+with open('db/servers.json') as f:
   data = json.load(f)
   #print(data)
   # Convert data to array
