@@ -90,7 +90,6 @@ _before_stop_work_ixiam() {
 
 ask() {
   local prompt default reply
-
   if [ "${2:-}" = "Y" ]; then
     prompt="Y/n"
     default=Y
@@ -145,21 +144,21 @@ _clipboard() {
 }
 
 if command -v xclip 1>/dev/null; then
-    if [[ -p /dev/stdin ]] ; then
-        # stdin is a pipe
-        # stdin -> clipboard
-        xclip -i -selection clipboard
-    else
-        # stdin is not a pipe
-        # clipboard -> stdout
-        xclip -o -selection clipboard
-    fi
+  if [[ -p /dev/stdin ]] ; then
+    # stdin is a pipe
+    # stdin -> clipboard
+    xclip -i -selection clipboard
+  else
+    # stdin is not a pipe
+    # clipboard -> stdout
+    xclip -o -selection clipboard
+  fi
 else
-    echo "Remember to install xclip"
+  echo "Remember to install xclip"
 fi
 
 # Docker
-dk-help(){
+dk-help() {
   echo "Docker Custom Commands"
   echo "======================"
   echo "dk-help         List custom Docker commands"
@@ -181,7 +180,7 @@ dk-help(){
   echo "dcd             docker-compose down -v"
 }
 
-dk-ps(){
+dk-ps() {
   docker ps
 }
 dk-start() {
@@ -193,18 +192,33 @@ dk-stop() {
 dk-stopall() {
   docker stop $(docker ps -q)
 }
-dk-php(){
+dk-php() {
   docker run --rm -v $(pwd):/app -w /app php:7.2.29-cli-alpine php "$1"
 }
-dk-gulp(){
+dk-gulp() {
   docker run --rm --user $(id -u):$(id -g) -v $PWD:/app -v $PWD/.npm:/.npm -v $PWD/.config:/.config -w /app node:15.3.0-alpine npx gulp "$@"
 }
-dk-npm-install(){
+dk-npm-install() {
   docker run --rm --user $(id -u):$(id -g) -v $PWD:/app -v $PWD/.npm:/.npm -v $PWD/.config:/.config -w /app node:15.3.0-alpine npm install "$@"
 }
-dk-npx(){
+dk-npx() {
   docker run --rm --user $(id -u):$(id -g) -v $PWD:/app -v $PWD/.npm:/.npm -v $PWD/.config:/.config -w /app node:15.3.0-alpine npx "$@"
 }
-dk-composer(){
+dk-composer() {
   docker run -it --rm -v $(pwd):/app composer "$1"
+}
+
+
+fkill() {
+  local pid
+  if [ "$UID" != "0" ]; then
+    pid=$(ps -f -u $UID | sed 1d | fzf -m | awk '{print $2}')
+  else
+    pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+  fi
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
 }
