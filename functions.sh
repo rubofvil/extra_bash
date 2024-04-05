@@ -133,7 +133,7 @@ _docker_compose_go() {
   cd $containeridpath
 }
 
-_open_projects() {
+oo() {
   PROJECT_PATH=$(ls -1 ~/Documents/workspaces/ | fzf | awk '{print $1}')
   code ~/Documents/workspaces/$PROJECT_PATH
 }
@@ -207,7 +207,6 @@ dk-npx() {
 dk-composer() {
   docker run -it --rm -v $(pwd):/app composer "$1"
 }
-
 
 fkill() {
   local pid
