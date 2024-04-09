@@ -178,6 +178,9 @@ dk-help() {
   echo "=============================="
   echo "dcu             docker-compose up -d"
   echo "dcd             docker-compose down -v"
+  echo "dcr             docker-compose restart"
+  echo "dcl             docker-compose logs -f"
+  echo "dcs             docker-compose stop"
 }
 
 dk-ps() {

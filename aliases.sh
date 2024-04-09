@@ -53,6 +53,10 @@ alias custom_squash_two_commits="git reset --soft HEAD~2 && git commit"
 # Docker Compose alias
 alias dcu="docker-compose up -d"
 alias dcd="docker-compose down -v"
+alias dcr="docker-compose restart"
+alias dcl="docker-compose logs -f"
+alias dcs="docker-compose stop"
+
 alias grep="grep --color"
 alias ll="ls -al"
 
