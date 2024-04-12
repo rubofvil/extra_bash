@@ -8,9 +8,11 @@ import json
 pathRepositories='../repositories/sites'
 extraSshParameter = ' -i /home/r.pineda/ssh_ixiam/id_rsa '
 
-## Read JSON file
+# Get the current directory
+currentDirectory = Path(__file__).resolve().parent
 
-with open('db/serverstats.json') as f:
+## Read JSON file
+with open(currentDirectory / 'db/serverstats.json') as f:
   data = json.load(f)
   #print(data)
   # Convert data to array
@@ -82,8 +84,11 @@ elif actionSelected == "3":
 elif actionSelected == "4":
   sufix = "sql-connect"
 
-sshCommand = 'ssh ' + extraSshParameter + sitesServers[namesSites[int(siteSelected)]]['user'] + '@' + sitesServers[namesSites[int(siteSelected)]]['server'] + " drush " + prefix + namesSites[int(siteSelected)] + " " + sufix
+sshCommand = 'ssh ' + extraSshParameter + sitesServers[namesSites[int(siteSelected)]]['user'] + '@' + sitesServers[namesSites[int(siteSelected)]]['server'] + " drush " + prefix + " " + namesSites[int(siteSelected)] + " " + sufix
 print(sshCommand)
 child = pexpect.spawn(sshCommand)
 result = child.read().decode('utf-8')
 print(result)
+if  actionSelected == "2":
+  # Open chrome
+  child = pexpect.spawn('google-chrome ' + result)

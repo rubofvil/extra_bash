@@ -68,3 +68,5 @@ alias rr='konsoleprofile colors=Solarized'
 ## Required a parameter with the connection in the directory /etc/vpnc/
 alias vpnc="sudo vpnc-connect --local-port 0 "
 alias vpnd="sudo vpnc-disconnect"
+
+alias get_enviroment="python3 ~/extra_bash/get_enviroment.py"
