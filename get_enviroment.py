@@ -91,4 +91,4 @@ result = child.read().decode('utf-8')
 print(result)
 if  actionSelected == "2":
   # Open chrome
-  child = pexpect.spawn('google-chrome ' + result)
+  child = pexpect.spawn('$BROWSER ' + result)

@@ -55,7 +55,7 @@ _custom_drush_uli() {
   ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias} | awk '/site_path/ {print $3}' | head -c -3 | cut -c2- | xclip -selection c
   ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias}
   sa=$(ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias})
-  google-chrome ${uli}
+  $BROWSER ${uli}
 }
 
 _custom_drush_uli_staging() {
@@ -63,7 +63,7 @@ _custom_drush_uli_staging() {
   uli=$(ssh -i ~/ssh_ixiam/id_rsa ${DEFAULT_USER_SSH}@${STAGING_HOST} drush ${site_alias} uli )
   ssh -i ~/ssh_ixiam/id_rsa ${DEFAULT_USER_SSH}@${STAGING_HOST} drush sa ${site_alias} | awk '/site_path/ {print $3}' | head -c -3 | cut -c2- | xclip -selection c
   sa=$(ssh -i ~/ssh_ixiam/id_rsa ${DEFAULT_USER_SSH}@${STAGING_HOST} drush sa ${site_alias})
-  google-chrome ${uli}
+  $BROWSER ${uli}
 }
 
 _custom_fix_permissions_aegir_ext() {
