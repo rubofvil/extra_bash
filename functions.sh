@@ -224,3 +224,14 @@ fkill() {
     echo $pid | xargs kill -${1:-9}
   fi
 }
+
+ssh_c() {
+  # Get path of the config file
+  config=$(ls ~/.ssh/config_ssh/*.conf | fzf -m | xargs)
+  # Get the host
+  host=$(cat $config | grep "Host\ " | awk '{print $2}')
+  # Print the host
+  echo $host
+  # Connect to the host
+  ssh $host; rr;
+}
