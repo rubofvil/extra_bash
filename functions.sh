@@ -45,10 +45,6 @@ custom_docker() {
   fi
 }
 
-# custom_upv_work() {custom_vpn_upv; custom_mount_upv;}
-
-STA="${USER_AEGIR_DEV}.ftp@${STAGING_HOST}"
-
 _custom_drush_uli() {
   site_alias=$(fc -rl 1 | ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa | fzf)
   uli=$(ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush ${site_alias} uli )
@@ -84,7 +80,6 @@ _before_stop_work_ixiam() {
   else
     echo "No"
   fi
-  # Logout ixiam
   firefox "$URL_ODOO"
 }
 
@@ -142,20 +137,6 @@ _clipboard() {
   CLIPBOARD_RESPONSE=$(gpaste-client history | fzf | awk '{print $2}')
   echo -n $CLIPBOARD_RESPONSE | xclip -selection c
 }
-
-if command -v xclip 1>/dev/null; then
-  if [[ -p /dev/stdin ]] ; then
-    # stdin is a pipe
-    # stdin -> clipboard
-    xclip -i -selection clipboard
-  else
-    # stdin is not a pipe
-    # clipboard -> stdout
-    xclip -o -selection clipboard
-  fi
-else
-  echo "Remember to install xclip"
-fi
 
 # Docker
 dk-help() {
@@ -226,6 +207,7 @@ fkill() {
 }
 
 ssh_c() {
+  # ToDo generate a list of hosts with the path of the config file, more clear to select
   # Get path of the config file
   config=$(ls ~/.ssh/config_ssh/*.conf | fzf -m | xargs)
   # Get the host
