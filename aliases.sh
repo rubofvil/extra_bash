@@ -36,7 +36,7 @@ alias custom_after_migrate='printf "drush en reroute_email --y \n drush vset --y
 alias custom_after_migrate_d9='printf "drush  drush pm-uninstall autologout --y \n | xclip -selection c';
 alias custom_change_password_root='printf "drush upwd root --password=${PASSWORD_DRUPAL_DEFAULT}" | xclip -selection c';
 alias custom_change_password_ruben='printf "drush upwd ruben --password=${PASSWORD_DRUPAL_RUBEN}" | xclip -selection c';
-alias custom_new_user='printf "drush user-create newuser --mail=${EMAIL_ENTERPRISE} --password=${PASSWORD_DRUPAL_RUBEN}" | xclip -selection c '
+alias custom_new_user='printf "drush user-create newuser --mail=${EMAIL_ENTERPRISE} --password=${PASSWORD_DRUPAL_RUBEN}" | xclip -selection c ';
 alias custom_aegir_path='printf "/data/disk/rpineda/static/" | xclip -selection c';
 alias custom_drush_make='printf "drush make site.make --no-core --contrib-destination=. -y " | xclip -selection c';
 
