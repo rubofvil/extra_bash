@@ -12,7 +12,7 @@ function toCamelCase($string) {
 
 function convertVariablesToCamelCase($content) {
     // Expresión regular para encontrar las variables de PHP
-    $pattern = '/\$(\w+_\w+)/';
+    $pattern = '/\$([^_]\w+_\w+)/';
     return preg_replace_callback($pattern, function ($matches) {
         return '$' . toCamelCase($matches[1]);
     }, $content);
