@@ -48,9 +48,11 @@ custom_docker() {
 _custom_drush_uli() {
   site_alias=$(fc -rl 1 | ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa | fzf)
   uli=$(ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush ${site_alias} uli )
-  ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias} | awk '/site_path/ {print $3}' | head -c -3 | cut -c2- | xclip -selection c
-  ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias}
-  sa=$(ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush sa ${site_alias})
+  st_site=$(ssh ${DEFAULT_USER_SSH}@${DEV_HOST} drush ${site_alias} st)
+  echo $st_site
+  root_path=$(echo $st_site | grep  'Drupal root'  | awk '{print $4}')
+  root_site=$(echo $st_site | grep  'Site path'  | awk '{print $4}')
+  echo $root_path$root_site | xclip -selection c
   $BROWSER ${uli}
 }
 
