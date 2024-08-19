@@ -52,7 +52,7 @@ _custom_drush_uli() {
   echo $st_site
   root_path=$(echo $st_site | grep  'Drupal root'  | awk '{print $4}')
   root_site=$(echo $st_site | grep  'Site path'  | awk '{print $4}')
-  echo $root_path$root_site | xclip -selection c
+  echo $root_path'/'$root_site | xclip -selection c
   $BROWSER ${uli}
 }
 
