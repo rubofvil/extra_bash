@@ -120,7 +120,7 @@ _docker_connect() {
 }
 
 _docker_inspect() {
-  containerid=$(docker ps | tail -n +2 | fzf | awk '{print $1}')
+  containerid=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | fzf | awk '{print $1}')
   docker inspect $containerid | grep com.docker.compose
 }
 
