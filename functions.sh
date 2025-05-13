@@ -115,26 +115,26 @@ ask() {
 }
 
 _docker_connect() {
-  containerid=$(docker ps | tail -n +2 | fzf | awk '{print $1}')
-  docker exec -it $containerid bash
+  containerId=$(docker ps | tail -n +2 | fzf | awk '{print $1}')
+  docker exec -it $containerId bash
 }
 
 _docker_inspect() {
-  containerid=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | fzf | awk '{print $1}')
-  containerInfo=$(docker inspect $containerid | grep com.docker.compose)
+  containerId=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | fzf | awk '{print $1}')
+  containerInfo=$(docker inspect $containerId | grep com.docker.compose)
 
   # Copy into clipboard the working directory of the container
-  containeridpath=$(echo $containerInfo | grep '"com.docker.compose.project.working_dir":' | awk -F ': ' '{print $2}' | tr -d '",')
-  containeridpath=$(echo $containeridpath | sed 's/\\//g')
+  containerIdPath=$(echo $containerInfo | grep '"com.docker.compose.project.working_dir":' | awk -F ': ' '{print $2}' | tr -d '",')
+  containerIdPath=$(echo $containerIdPath | sed 's/\\//g')
   echo $containerInfo
-  echo $containeridpath | xclip -selection c
-  cd $containeridpath
+  echo $containerIdPath | xclip -selection c
+  cd $containerIdPath
 }
 
 _docker_compose_go() {
-  containerid=$(docker ps | tail -n +2 | fzf | awk '{print $1}')
-  containeridpath=$(docker inspect $containerid | grep working_dir | awk '{print $2}' |  sed 's/\"//g' |  sed 's/,//g')
-  cd $containeridpath
+  containerId=$(docker ps | tail -n +2 | fzf | awk '{print $1}')
+  containerIdPath=$(docker inspect $containerId | grep working_dir | awk '{print $2}' |  sed 's/\"//g' |  sed 's/,//g')
+  cd $containerIdPath
 }
 
 oo() {
