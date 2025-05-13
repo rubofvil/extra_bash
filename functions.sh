@@ -121,7 +121,14 @@ _docker_connect() {
 
 _docker_inspect() {
   containerid=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | fzf | awk '{print $1}')
-  docker inspect $containerid | grep com.docker.compose
+  containerInfo=$(docker inspect $containerid | grep com.docker.compose)
+
+  # Copy into clipboard the working directory of the container
+  containeridpath=$(echo $containerInfo | grep '"com.docker.compose.project.working_dir":' | awk -F ': ' '{print $2}' | tr -d '",')
+  containeridpath=$(echo $containeridpath | sed 's/\\//g')
+  echo $containerInfo
+  echo $containeridpath | xclip -selection c
+  cd $containeridpath
 }
 
 _docker_compose_go() {
